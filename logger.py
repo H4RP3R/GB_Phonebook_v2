@@ -5,7 +5,10 @@ def get_contacts_list(data_file):
     with open(data_file, 'r', encoding='utf-8') as file:
         contacts_str = file.read()
 
-    return contacts_str.rstrip().split('\n\n')
+    if contacts_str:
+        return contacts_str.rstrip().split('\n\n')
+    else:
+        return []
 
 
 def create_contact():
@@ -28,6 +31,10 @@ def write_contact(data_file, contact, message):
 def print_contacts():
     '''List all entries'''
     contacts_list = get_contacts_list('phonebook.txt')
+
+    if not contacts_list:
+        print('Телефонная книга пуста.\n')
+
     for nn, contact in enumerate(contacts_list, 1):
         print(f'{nn}. {contact}\n')
 
@@ -65,6 +72,10 @@ def copy_contact():
     print_contacts()
 
     contacts_list = get_contacts_list('phonebook.txt')
+
+    if not contacts_list:
+        return
+
     contacts_list_copy = get_contacts_list('contacts_copy.txt')
     contact_num = None
 
