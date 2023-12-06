@@ -50,7 +50,11 @@ def search_contact(field=''):
         '5. по городу\n'
     )
 
-    index_var = int(input('Введите вариант поиска: '))-1
+    try:
+        index_var = int(input('Введите вариант поиска: '))-1
+    except ValueError:
+        print('\nНеобходимо ввести число!\n')
+        return
 
     search = input('Введите данные для поиска: ')
 
@@ -80,7 +84,11 @@ def copy_contact():
     contact_num = None
 
     while contact_num not in range(len(contacts_list)):
-        contact_num = int(input('Введите номер контакта для копирования: '))-1
+        try:
+            contact_num = int(input('Введите номер контакта для копирования: '))-1
+        except ValueError:
+            print('\nНеобходимо ввести число!\n')
+            return
 
     if contacts_list[contact_num] in contacts_list_copy:
         print('\nДанный контакт уже скопирован.\n')
