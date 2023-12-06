@@ -4,3 +4,4 @@ __pycache__/
 *_venv/
 
 phonebook.txt
+contacts_copy.txt
