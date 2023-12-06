@@ -39,8 +39,15 @@ def print_contacts():
         print(f'{nn}. {contact}\n')
 
 
-def search_contact(field=''):
-    ''''''
+def search_contact():
+    '''Searches for contacts by parameter'''
+    with open('phonebook.txt', 'r', encoding='utf-8') as file:
+        contacts_list = get_contacts_list('phonebook.txt')
+
+    if not contacts_list:
+        print('Телефонная книга пуста.\n')
+        return
+
     print(
         'Возможные варианты поиска:\n'
         '1. по фамилии\n'
@@ -57,11 +64,6 @@ def search_contact(field=''):
         return
 
     search = input('Введите данные для поиска: ')
-
-    with open('phonebook.txt', 'r', encoding='utf-8') as file:
-        contacts_str = file.read()
-
-    contacts_list = get_contacts_list('phonebook.txt')
 
     for contact_str in contacts_list:
         contact_list = contact_str.replace('\n', ' ').split(' ')
