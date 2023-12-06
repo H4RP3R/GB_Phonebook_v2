@@ -1,8 +1,8 @@
 from create_data import *
 
 
-def get_contacts_list():
-    with open('phonebook.txt', 'r', encoding='utf-8') as file:
+def get_contacts_list(data_file):
+    with open(data_file, 'r', encoding='utf-8') as file:
         contacts_str = file.read()
 
     return contacts_str.rstrip().split('\n\n')
@@ -19,15 +19,15 @@ def create_contact():
     return f'{surname} {name} {patronymic} {phone}\n{address}\n\n'
 
 
-def write_contact(data_file, contact):
+def write_contact(data_file, contact, message):
     with open(data_file, 'a', encoding='utf-8') as file:
         file.write(contact)
-        print('\nКонтакт записан!\n')
+        print(f'\n{message}\n')
 
 
 def print_contacts():
     '''List all entries'''
-    contacts_list = get_contacts_list()
+    contacts_list = get_contacts_list('phonebook.txt')
     for nn, contact in enumerate(contacts_list, 1):
         print(f'{nn}. {contact}\n')
 
@@ -50,7 +50,7 @@ def search_contact(field=''):
     with open('phonebook.txt', 'r', encoding='utf-8') as file:
         contacts_str = file.read()
 
-    contacts_list = get_contacts_list()
+    contacts_list = get_contacts_list('phonebook.txt')
 
     for contact_str in contacts_list:
         contact_list = contact_str.replace('\n', ' ').split(' ')
@@ -59,14 +59,20 @@ def search_contact(field=''):
 
 
 def copy_contact():
+    with open('contacts_copy.txt', 'a'):
+        pass
+
     print_contacts()
 
-    contacts_list = get_contacts_list()
+    contacts_list = get_contacts_list('phonebook.txt')
+    contacts_list_copy = get_contacts_list('contacts_copy.txt')
     contact_num = None
+
     while contact_num not in range(len(contacts_list)):
         contact_num = int(input('Введите номер контакта для копирования: '))-1
 
-    contact_str = contacts_list[contact_num] + '\n\n'
-
-    write_contact('contacts_copy.txt', contact_str)
-    print('Контакт скопирован!')
+    if contacts_list[contact_num] in contacts_list_copy:
+        print('\nДанный контакт уже скопирован.\n')
+    else:
+        contact_str = contacts_list[contact_num] + '\n\n'
+        write_contact('contacts_copy.txt', contact_str, 'Контакт скопирован!')

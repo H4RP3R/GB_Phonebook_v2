@@ -27,7 +27,7 @@ def interface():
         match user_input:
             case '1':
                 contact = create_contact()
-                write_contact('phonebook.txt', contact)
+                write_contact('phonebook.txt', contact, 'Контакт записан!')
             case '2':
                 print_contacts()
             case '3':
